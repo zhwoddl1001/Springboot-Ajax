@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserId(int id) {
-        return null;
+        return userMapper.getUserId(id);
     }
+
 }

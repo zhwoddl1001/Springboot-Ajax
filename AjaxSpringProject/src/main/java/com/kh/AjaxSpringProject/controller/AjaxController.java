@@ -41,7 +41,12 @@ public class AjaxController {
         System.out.println(users);
         return users;
     }
-    @GetMapping("/api/user/{id}")
+    // id = 유동적으로 사용자가 선택하는 id 값으로 변경
+    // jQuery{} 를 사용해서 변수이름이나 특정 값을 가져옴
+    // controller 는 {} 만 사용해도 가능
+    // @PathVariable("id") int id @GetMapping 에서 {id} 값을 바라봄
+    
+    @GetMapping("/api/user/{id}") 
     public User getUserById(@PathVariable("id") int id){
         return userService.getUserId(id);
     }
