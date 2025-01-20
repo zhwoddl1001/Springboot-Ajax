@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>카페 정보</h1>
+<div id="cafeDetail">
+
+    <p id="name"></p>
+    <p id="address"></p>
+    <p id="phoneNumber"></p>
+    <p id="openingTime"></p>
+    <p id="closingTime"></p>
+    <p id="description"></p>
+
+</div>
+<script>
+const queryParams = new URLSearchParams(window.location.search);
+const cafeId = queryParams.get('id');
+$.ajax({
+    url: `/api/cafe/${cafeId}`,
+    method:'GET',
+    success:
+    function (data){
+        if (data) {
+            $("#name").html(  `<p><strong> 카페이름 : </strong>${data.name}</p>`);
+            $("#address").html( `<p><strong> 카페주소 : </strong>${data.address}</p>`);
+            $("#phoneNumber").html( `<p><strong> 카페번호 : </strong>${data.phoneNumber}</p>`);
+            $("#openingTime").html( `<p><strong> 오픈시간 : </strong>${data.openingTime}</p>`);
+            $("#closingTime").html( `<p><strong> 종료시간 : </strong>${data.closingTime}</p>`);
+            $("#description").html(`<p><strong> 카페설명 : </strong>${data.description}</p>`);
+        }else {
+            $('#cafeDetail').html(`<p>일치하는 카페를 조회할 수 없습니다.</p>`)
+        }
+    },
+    error:
+    function (){
+        alert("컨트롤러에서 데이터를 가져오는데 실패했습니다.")
+    }
+})
+</script>
+</body>
+</html>

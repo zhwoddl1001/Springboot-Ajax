@@ -15,31 +15,30 @@
 <script>
     $.ajax({
         url: '/api/cafes',
-        method:'GET',
+        method: 'GET',
         success:
-        function (data){
-            if (data.length>0){
-                $.each(data,
-                function (index,cafe){
-                    const cafeInfo = `
-<p><strong> ID : </strong>${cafe.id}</p>
-<p><strong> Name : </strong>${cafe.name}</p>
-<p><strong> Address : </strong>${cafe.address}</p>
-<p><strong> PhoneNumber : </strong>${cafe.phoneNumber}</p>
-<p><strong> OpeningTime : </strong>${cafe.openingTime}</p>
-<p><strong> ClosingTime : </strong>${cafe.closingTime}</p>
-<p><strong> Description : </strong>${cafe.description}</p>
-`;
-                    $('#cafeContainer').append(cafeInfo);
-                })
-            }else {
-                $('#cafeContainer').append("<p>정보가 조회되지 않습니다.</p>")
-            }
-        },
+            function (cafeData) {
+
+                $.each(cafeData,
+                    function (index, cafe) {
+                        $('#cafeContainer').append(`
+                        <p><strong> ID : </strong>${cafe.id}</p>
+                        <p><strong> 카페이름 : </strong>${cafe.name} <a href="/detail/cafe?id=${cafe.id}"> [이동]</a></p>
+                        <p><strong> 카페주소 : </strong>${cafe.address}</p>
+                        <p><strong> 카페번호 : </strong>${cafe.phoneNumber}</p>
+                        <p><strong> 오픈시간 : </strong>${cafe.openingTime}</p>
+                        <p><strong> 종료시간 : </strong>${cafe.closingTime}</p>
+                        <p><strong> 카페설명 : </strong>${cafe.description}</p>
+                            `);
+                    })
+
+                //  $('#cafeContainer').append("<p>정보가 조회되지 않습니다.</p>")
+
+            },
         error:
-        function (){
-            alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.")
-        }
+            function () {
+                alert("컨트롤러에 문제가 생겨서 데이터를 가져오지 못합니다.")
+            }
     })
 </script>
 </body>
